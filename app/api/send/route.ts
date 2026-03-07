@@ -48,10 +48,13 @@ export async function POST(request: NextRequest) {
       { success: true, message },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("KV Error:", error);
     return NextResponse.json(
-      { error: "サーバーエラーが発生しました" },
+      { 
+        error: "サーバーエラーが発生しました", 
+        details: error?.message || String(error)
+      },
       { status: 500 }
     );
   }
