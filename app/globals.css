@@ -1,0 +1,510 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+
+:root {
+  /* パステルカラーパレット - 海・さざ波テーマ */
+  --color-sky: #e0f2fe;
+  --color-ocean-light: #bae6fd;
+  --color-ocean: #7dd3fc;
+  --color-ocean-deep: #38bdf8;
+  --color-sand: #fef3c7;
+  --color-sand-warm: #fde68a;
+  --color-coral: #fda4af;
+  --color-coral-deep: #fb7185;
+  --color-foam: #f0f9ff;
+  --color-white: #ffffff;
+  --color-text: #334155;
+  --color-text-light: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-accent: #38bdf8;
+  --color-accent-hover: #0ea5e9;
+  --color-success: #86efac;
+  --color-success-deep: #4ade80;
+
+  /* タイポグラフィ */
+  --font-main: 'Zen Maru Gothic', sans-serif;
+
+  /* 影 */
+  --shadow-card: 0 4px 24px rgba(56, 189, 248, 0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+  --shadow-button: 0 2px 12px rgba(56, 189, 248, 0.25);
+
+  /* 角丸 */
+  --radius-card: 20px;
+  --radius-button: 14px;
+  --radius-input: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: linear-gradient(180deg, var(--color-foam) 0%, var(--color-sky) 40%, var(--color-ocean-light) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* さざ波アニメーション */
+@keyframes wave {
+  0% { transform: translateX(0) translateY(0) scaleY(1); }
+  25% { transform: translateX(-10px) translateY(-4px) scaleY(1.05); }
+  50% { transform: translateX(0) translateY(-8px) scaleY(1.1); }
+  75% { transform: translateX(10px) translateY(-4px) scaleY(1.05); }
+  100% { transform: translateX(0) translateY(0) scaleY(1); }
+}
+
+@keyframes waveMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; filter: brightness(1.1); }
+  100% { opacity: 0.5; }
+}
+
+/* ページコンテナ */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* さざ波背景 */
+.wave-bg {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.wave-bg::before,
+.wave-bg::after,
+.wave-bg::backdrop {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  border-radius: 40% 45% 0 0;
+}
+
+.wave-bg::before {
+  background: var(--color-ocean);
+  opacity: 0.12;
+  animation: wave 9s ease-in-out infinite;
+}
+
+.wave-bg::after {
+  background: var(--color-ocean-deep);
+  opacity: 0.15;
+  animation: wave 12s ease-in-out infinite reverse;
+  height: 75%;
+}
+
+/* カードUI - よりガラスっぽく */
+.card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15), 0 2px 10px rgba(0,0,0,0.02);
+  padding: 36px 28px;
+  width: 100%;
+  max-width: 440px;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  position: relative;
+  z-index: 1;
+}
+
+/* タイトル */
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* フォーム */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--color-ocean-light);
+  border-radius: var(--radius-input);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--color-ocean-deep);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+  background: var(--color-white);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ボタン */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: var(--radius-button);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-ocean-deep) 0%, var(--color-accent-hover) 100%);
+  color: var(--color-white);
+  box-shadow: var(--shadow-button);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-light);
+  border: 1.5px solid var(--color-ocean-light);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--color-ocean);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+
+/* トップページ専用 */
+.hero-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 16px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* 送信成功 */
+.success-container {
+  text-align: center;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.success-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.success-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.success-message {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* 戻るリンク */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link:hover {
+  color: var(--color-text-light);
+}
+
+/* エラーメッセージ */
+.error-message {
+  background: rgba(253, 164, 175, 0.2);
+  border: 1px solid var(--color-coral);
+  color: var(--color-coral-deep);
+  padding: 10px 14px;
+  border-radius: var(--radius-input);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* レスポンシブ */
+@media (max-width: 480px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+
+  .card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* 将来拡張マーク */
+.future-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--color-sand);
+  color: var(--color-text-light);
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* ローディング */
+.loading-dots::after {
+  content: '';
+  animation: shimmer 1.5s infinite;
+}
+
+/* ラベル補足テキスト */
+.form-label-sub {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* 宛先選択UI */
+.receiver-search-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.receiver-search-input {
+  padding-left: 16px;
+}
+
+.receiver-search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-ocean-light);
+  border-radius: var(--radius-input);
+  box-shadow: var(--shadow-card);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.receiver-search-item {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.receiver-search-item:hover {
+  background: var(--color-foam);
+}
+
+.receiver-search-item:not(:last-child) {
+  border-bottom: 1px solid rgba(186, 230, 253, 0.4);
+}
+
+.receiver-search-empty {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* お気に入りセクション */
+.receiver-favorites {
+  margin-top: 4px;
+}
+
+.receiver-favorites-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+.receiver-favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.receiver-favorite-chip {
+  padding: 8px 16px;
+  border: 1.5px solid var(--color-ocean-light);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.receiver-favorite-chip:hover {
+  background: var(--color-ocean-light);
+  border-color: var(--color-ocean);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.15);
+}
+
+.receiver-favorite-chip:active {
+  transform: translateY(0);
+}
+
+/* 選択済み宛先表示 */
+.receiver-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.6) 0%, rgba(186, 230, 253, 0.4) 100%);
+  border: 1.5px solid var(--color-ocean-light);
+  border-radius: var(--radius-input);
+  animation: fadeInUp 0.25s ease-out;
+}
+
+.receiver-selected-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.receiver-selected-clear {
+  border: none;
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--color-text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.receiver-selected-clear:hover {
+  background: rgba(253, 164, 175, 0.3);
+  color: var(--color-coral-deep);
+}

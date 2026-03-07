@@ -1,0 +1,29 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { cookies } from "next/headers";
+import Gate from "./components/Gate";
+
+export const metadata: Metadata = {
+  title: "Beyond Connect POST",
+  description: "スクールアイドルの卒業生にメッセージを届ける場所",
+};
+
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const cookieStore = await cookies();
+  const passedRef = cookieStore.get("admin_gate")?.value;
+
+  const isAuthorized = !adminPassword || passedRef === adminPassword;
+
+  return (
+    <html lang="ja">
+      <body>
+        {!isAuthorized ? <Gate /> : children}
+      </body>
+    </html>
+  );
+}
