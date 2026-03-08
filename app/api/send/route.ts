@@ -1,5 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
+
+// Redisクライアントを REDIS_URL もしくはその他の環境変数から初期化
+const redisUrl = process.env.REDIS_URL || process.env.KV_REST_API_URL;
+const redisToken = process.env.REDIS_TOKEN || process.env.KV_REST_API_TOKEN;
+
+// Tokenがない場合は URL 単体で接続を試みる（Vercel独自のRedisアドオン等に対応）
+let redis: Redis | null = null;
+if (redisUrl) {
+  if (redisUrl.startsWith('http') && redisToken) {
+    redis = new Redis({ url: redisUrl, token: redisToken });
+  } else {
+    // もし REDIS_URL が redis:// 形式の場合を考慮（Upstash RESTではないが念の為フォールバック）
+    // Upstash Redis は通常 REST_URL を提供しますが、もし利用できない場合はエラー回避用
+    console.warn("Using alternative Redis connection initialization");
+    try {
+      redis = Redis.fromEnv();
+    } catch {
+      // Vercel上の Redis URL に合わせて初期化を調整 (URLが提供されていれば最低限の動作を試みる)
+      redis = new Redis({ url: redisUrl, token: redisToken || "dummy" });
+    }
+  }
+} else {
+  try {
+     redis = Redis.fromEnv();
+  } catch (e) {
+     console.error("Failed to init Redis from env", e);
+  }
+}
 
 // メッセージの型定義
 interface Message {
@@ -32,6 +60,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!redis) {
+      throw new Error("Redis client is not initialized. Please check REDIS_URL.");
+    }
+
     // メッセージ作成
     const message: Message = {
       id: generateMessageId(),
@@ -41,15 +73,15 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     };
 
-    // Vercel KV に保存 (リストの先頭に追加)
-    await kv.lpush("beyond_connect_messages", JSON.stringify(message));
+    // Vercel KV / Upstash Redis に保存 (リストの先頭に追加)
+    await redis.lpush("beyond_connect_messages", JSON.stringify(message));
 
     return NextResponse.json(
       { success: true, message },
       { status: 201 }
     );
   } catch (error: any) {
-    console.error("KV Error:", error);
+    console.error("Redis Error:", error);
     return NextResponse.json(
       { 
         error: "サーバーエラーが発生しました", 
