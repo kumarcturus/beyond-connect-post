@@ -60,7 +60,7 @@ export default function RequestPage() {
               <div className="success-icon">{TEXT.request.successIcon}</div>
               <h2 className="success-title">{TEXT.request.successTitle}</h2>
               <p className="success-message pre-line">{TEXT.request.successMessage}</p>
-              <Link href="/login" className="btn btn-secondary">
+              <Link href="/register" className="btn btn-secondary">
                 {TEXT.request.backToLogin}
               </Link>
             </div>
@@ -75,7 +75,7 @@ export default function RequestPage() {
       <div className="wave-bg" />
 
       <div style={{ width: "100%", maxWidth: "420px", position: "relative", zIndex: 1 }}>
-        <Link href="/login" className="back-link">
+        <Link href="/register" className="back-link">
           {TEXT.request.backToLogin}
         </Link>
 

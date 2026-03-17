@@ -52,6 +52,17 @@ export default function Home() {
           {TEXT.top.termsLink}
         </Link>
         <span style={{ margin: "0 8px" }}>|</span>
+        <Link
+          href="/guide"
+          style={{
+            color: "var(--color-text-muted)",
+            textDecoration: "underline",
+            fontSize: "0.75rem",
+          }}
+        >
+          {TEXT.top.guideLink}
+        </Link>
+        <span style={{ margin: "0 8px" }}>|</span>
         {TEXT.top.footer}
       </footer>
     </div>

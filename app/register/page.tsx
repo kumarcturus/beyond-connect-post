@@ -184,7 +184,10 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <div style={{ textAlign: "center", marginTop: "16px" }}>
+          <div style={{ textAlign: "center", marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <Link href="/request" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
+              {TEXT.register.requestLink}
+            </Link>
             <Link href="/login" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
               {TEXT.register.loginLink}
             </Link>

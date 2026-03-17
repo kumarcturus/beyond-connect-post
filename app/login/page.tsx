@@ -211,9 +211,6 @@ export default function LoginPage() {
             <Link href="/register" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
               {TEXT.login.registerLink}
             </Link>
-            <Link href="/request" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
-              {TEXT.login.requestLink}
-            </Link>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
  * Gate認証の対象外パスリスト
  * ここに追加されたパスはGate認証なしで閲覧可能
  */
-const PUBLIC_PATHS = ["/terms"];
+const PUBLIC_PATHS = ["/terms", "/guide"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
