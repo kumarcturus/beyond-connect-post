@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
 
+/* text.ts で \n を使った改行を表示するためのユーティリティ */
+.pre-line { white-space: pre-line; }
+
 :root {
   /* パステルカラーパレット - 海・さざ波テーマ */
   --color-sky: #e0f2fe;
@@ -209,6 +212,17 @@ textarea.form-input {
   resize: vertical;
   min-height: 120px;
   line-height: 1.6;
+}
+
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
 }
 
 /* ボタン */
@@ -507,4 +521,239 @@ textarea.form-input {
 .receiver-selected-clear:hover {
   background: rgba(253, 164, 175, 0.3);
   color: var(--color-coral-deep);
+}
+
+/* お気に入りスターボタン */
+.star-btn {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.star-btn:hover {
+  opacity: 1;
+}
+
+.receiver-search-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 管理画面 */
+.admin-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.admin-recipient-card {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(186, 230, 253, 0.4);
+}
+
+.admin-recipient-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.admin-recipient-card:first-child {
+  padding-top: 0;
+}
+
+.admin-recipient-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.admin-recipient-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+
+.admin-recipient-school {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.admin-recipient-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.admin-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.admin-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.admin-badge-registered {
+  background: rgba(134, 239, 172, 0.3);
+  color: #166534;
+}
+
+.admin-badge-invited {
+  background: rgba(254, 243, 199, 0.6);
+  color: #92400e;
+}
+
+.admin-badge-none {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--color-text-muted);
+}
+
+.admin-badge-test {
+  background: rgba(253, 164, 175, 0.2);
+  color: var(--color-coral-deep);
+  margin-left: 6px;
+}
+
+.admin-delete-btn {
+  border: 1px solid rgba(253, 164, 175, 0.5);
+  background: none;
+  color: var(--color-coral-deep);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-delete-btn:hover {
+  background: rgba(253, 164, 175, 0.2);
+}
+
+.admin-invite-result {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(224, 242, 254, 0.4);
+  border-radius: var(--radius-input);
+}
+
+.admin-invite-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-ocean-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: monospace;
+}
+
+.admin-copy-btn {
+  border: 1px solid var(--color-ocean-light);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-light);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-copy-btn:hover {
+  background: var(--color-ocean-light);
+  color: var(--color-text);
+}
+
+.admin-table-wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* ダッシュボード */
+.dashboard-message-card {
+  padding: 20px 24px !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dashboard-message-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.18);
+}
+
+.dashboard-message-header {
+  margin-bottom: 8px;
+}
+
+.dashboard-message-preview {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.dashboard-message-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ─── ご利用にあたって (/terms) ─── */
+.terms-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.terms-sub-heading {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.terms-body {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.terms-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.terms-list li {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.terms-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--color-accent);
 }

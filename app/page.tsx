@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TEXT } from "@/app/lib/text";
 
 export default function Home() {
   return (
@@ -9,23 +10,21 @@ export default function Home() {
       <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
         <div className="card" style={{ textAlign: "center" }}>
           {/* アイコン */}
-          <div className="hero-icon">🌊✉️</div>
+          <div className="hero-icon">{TEXT.top.icon}</div>
 
           {/* タイトル */}
-          <h1 className="page-title">Beyond Connect POST</h1>
-          <p className="page-subtitle">
-            スクールアイドルの卒業生に
-            <br />
-            メッセージを届ける場所
+          <h1 className="page-title">{TEXT.top.title}</h1>
+          <p className="page-subtitle pre-line">
+            {TEXT.top.subtitle}
           </p>
 
           {/* ボタン */}
           <div className="btn-group">
             <Link href="/send" className="btn btn-primary" id="btn-send-message">
-              ✉️ メッセージを送る
+              {TEXT.top.sendButton}
             </Link>
             <Link href="/login" className="btn btn-secondary" id="btn-idol-login">
-              🎤 スクールアイドルログイン
+              {TEXT.top.loginButton}
             </Link>
           </div>
         </div>
@@ -42,7 +41,18 @@ export default function Home() {
           zIndex: 1,
         }}
       >
-        Beyond Connect POST © 2026
+        <Link
+          href="/terms"
+          style={{
+            color: "var(--color-text-muted)",
+            textDecoration: "underline",
+            fontSize: "0.75rem",
+          }}
+        >
+          {TEXT.top.termsLink}
+        </Link>
+        <span style={{ margin: "0 8px" }}>|</span>
+        {TEXT.top.footer}
       </footer>
     </div>
   );

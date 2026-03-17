@@ -6,7 +6,12 @@ export async function verifyPassword(password: string) {
   const adminPassword = process.env.ADMIN_PASSWORD;
   if (!adminPassword || password === adminPassword) {
     const cookieStore = await cookies();
-    cookieStore.set("admin_gate", password, { path: "/", httpOnly: true });
+    cookieStore.set("admin_gate", password, {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
     return true;
   }
   return false;

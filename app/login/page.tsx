@@ -1,169 +1,219 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { TEXT } from "@/app/lib/text";
 
-// TODO: 将来拡張
-// - 生体認証ログイン
-// - ログイン後のダッシュボード（受信メッセージ一覧）
-// - 既読機能
-// - ブックマーク機能
-
-// MVPでは簡易認証（ハードコードユーザー）
-const IDOL_USERS = [
-  { nickname: "rurino", password: "rurino123" },
-  { nickname: "kaho", password: "kaho123" },
-  { nickname: "sayaka", password: "sayaka123" },
-];
+interface School {
+  name: string;
+  short: string;
+}
 
 export default function LoginPage() {
-  const [nickname, setNickname] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [schools, setSchools] = useState<School[]>([]);
+  const [school, setSchool] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [loginNickname, setLoginNickname] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [resetRequesting, setResetRequesting] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (searchParams.get("registered") === "1") {
+      setSuccessMessage(TEXT.login.registeredSuccess);
+    }
+  }, [searchParams]);
+
+  // 学校一覧を取得
+  useEffect(() => {
+    fetch("/api/schools")
+      .then((res) => res.json())
+      .then((data) => setSchools(data))
+      .catch(() => {});
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccessMessage("");
 
-    if (!nickname.trim() || !password.trim()) {
-      setError("ニックネームとパスワードを入力してください");
+    if (!school || !name.trim() || !password.trim()) {
+      setError(TEXT.login.validationError);
       return;
     }
 
-    const user = IDOL_USERS.find(
-      (u) => u.nickname === nickname.trim() && u.password === password.trim()
-    );
+    setLoading(true);
 
-    if (user) {
-      setLoggedIn(true);
-      setLoginNickname(user.nickname);
-    } else {
-      setError("ニックネームまたはパスワードが正しくありません");
+    try {
+      const res = await fetch("/api/idol-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          school,
+          name: name.trim(),
+          password: password.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || TEXT.login.loginFailed);
+        return;
+      }
+
+      router.push("/dashboard");
+    } catch {
+      setError(TEXT.common.serverError);
+    } finally {
+      setLoading(false);
     }
   };
-
-  // ログイン後画面
-  if (loggedIn) {
-    return (
-      <div className="page-container">
-        <div className="wave-bg" />
-        <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-          <div className="card">
-            <div className="success-container">
-              <div className="success-icon">🎤</div>
-              <h2 className="success-title">
-                ようこそ、{loginNickname} さん！
-              </h2>
-              <p className="success-message">
-                ログインに成功しました。
-                <br />
-                メッセージダッシュボードは今後実装予定です。
-              </p>
-              {/* TODO: 受信メッセージ一覧画面を実装 */}
-              <div style={{ marginBottom: "12px" }}>
-                <span className="future-badge">🔜 Coming Soon</span>
-              </div>
-              <p
-                style={{
-                  fontSize: "0.8rem",
-                  color: "var(--color-text-muted)",
-                  marginBottom: "20px",
-                  lineHeight: 1.6,
-                }}
-              >
-                受信メッセージの閲覧・既読・ブックマーク機能は今後のアップデートで追加されます。
-              </p>
-              <Link href="/" className="btn btn-secondary">
-                トップに戻る
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="page-container">
       <div className="wave-bg" />
 
       <div style={{ width: "100%", maxWidth: "420px", position: "relative", zIndex: 1 }}>
-        {/* 戻るリンク */}
         <Link href="/" className="back-link">
-          ← トップに戻る
+          {TEXT.common.backToTop}
         </Link>
 
         <div className="card">
-          <h1 className="page-title">🎤 スクールアイドルログイン</h1>
+          <h1 className="page-title pre-line">{TEXT.login.title}</h1>
           <p className="page-subtitle">
-            届いたメッセージを確認しよう
+            {TEXT.login.subtitle}
           </p>
 
-          {/* エラー表示 */}
+          {successMessage && (
+            <div style={{
+              background: "rgba(134, 239, 172, 0.2)",
+              border: "1px solid var(--color-success-deep)",
+              color: "#166534",
+              padding: "10px 14px",
+              borderRadius: "var(--radius-input)",
+              fontSize: "0.85rem",
+              marginBottom: "16px",
+              textAlign: "center",
+            }}>
+              {successMessage}
+            </div>
+          )}
+
           {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handleLogin}>
-            {/* ニックネーム */}
             <div className="form-group">
-              <label htmlFor="nickname" className="form-label">
-                ニックネーム
+              <label htmlFor="school" className="form-label">
+                {TEXT.login.schoolLabel}
+              </label>
+              <select
+                id="school"
+                className="form-input"
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
+                disabled={loading}
+              >
+                <option value="">{TEXT.login.schoolDefault}</option>
+                {schools.map((s) => (
+                  <option key={s.name} value={s.name}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">
+                {TEXT.login.nameLabel}
               </label>
               <input
                 type="text"
-                id="nickname"
+                id="name"
                 className="form-input"
-                placeholder="例: rurino"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
+                placeholder={TEXT.login.namePlaceholder}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={loading}
               />
             </div>
 
-            {/* パスワード */}
             <div className="form-group">
               <label htmlFor="password" className="form-label">
-                パスワード
+                {TEXT.login.passwordLabel}
               </label>
               <input
                 type="password"
                 id="password"
                 className="form-input"
-                placeholder="パスワード"
+                placeholder={TEXT.login.passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
               />
             </div>
 
-            {/* ログインボタン */}
             <button
               type="submit"
               className="btn btn-primary"
               id="btn-login"
+              disabled={loading}
             >
-              ログイン
+              {loading ? TEXT.login.submitting : TEXT.login.submitButton}
             </button>
           </form>
 
-          {/* テスト用ヒント */}
-          <div
-            style={{
-              marginTop: "20px",
-              padding: "12px",
-              background: "rgba(254, 243, 199, 0.5)",
-              borderRadius: "10px",
-              fontSize: "0.75rem",
-              color: "var(--color-text-light)",
-              lineHeight: 1.6,
-            }}
-          >
-            💡 テスト用アカウント
-            <br />
-            rurino / rurino123
-            <br />
-            kaho / kaho123
-            <br />
-            sayaka / sayaka123
+          <div style={{ textAlign: "center", marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <button
+              type="button"
+              style={{
+                background: "none",
+                border: "none",
+                fontSize: "0.85rem",
+                color: "var(--color-text-muted)",
+                cursor: "pointer",
+                textDecoration: "underline",
+                fontFamily: "var(--font-main)",
+              }}
+              disabled={resetRequesting}
+              onClick={async () => {
+                if (!school || !name.trim()) {
+                  setError(TEXT.passwordReset.inputRequired);
+                  return;
+                }
+                setResetRequesting(true);
+                setError("");
+                setSuccessMessage("");
+                try {
+                  const res = await fetch("/api/password-reset", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ school, name: name.trim() }),
+                  });
+                  if (res.ok) {
+                    setSuccessMessage(TEXT.passwordReset.requestSent);
+                  } else {
+                    setError(TEXT.passwordReset.requestFailed);
+                  }
+                } catch {
+                  setError(TEXT.passwordReset.requestFailed);
+                } finally {
+                  setResetRequesting(false);
+                }
+              }}
+            >
+              {TEXT.passwordReset.linkText}
+            </button>
+            <Link href="/register" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
+              {TEXT.login.registerLink}
+            </Link>
+            <Link href="/request" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
+              {TEXT.login.requestLink}
+            </Link>
           </div>
         </div>
       </div>

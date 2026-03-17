@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Gate from "./components/Gate";
 
 export const metadata: Metadata = {
@@ -17,7 +17,11 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const passedRef = cookieStore.get("admin_gate")?.value;
 
-  const isAuthorized = !adminPassword || passedRef === adminPassword;
+  // middlewareで公開ページフラグが設定されている場合はGateをスキップ
+  const headerStore = await headers();
+  const isPublicPage = headerStore.get("x-public-page") === "1";
+
+  const isAuthorized = isPublicPage || !adminPassword || passedRef === adminPassword;
 
   return (
     <html lang="ja">
