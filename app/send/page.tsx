@@ -246,9 +246,53 @@ export default function SendPage() {
               {/* 未選択時 */}
               {!selectedRecipient && (
                 <>
+                  {/* 検索バー */}
+                  <div className="receiver-search-wrapper">
+                    <input
+                      type="text"
+                      className="form-input receiver-search-input"
+                      placeholder={TEXT.send.recipientSearchPlaceholder}
+                      value={searchQuery}
+                      onChange={(e) => handleSearchChange(e.target.value)}
+                      onFocus={() => setShowSearch(true)}
+                    />
+                    {showSearch && searchQuery.trim() && (
+                      <div className="receiver-search-results">
+                        {searching ? (
+                          <div className="receiver-search-empty">{TEXT.send.searching}</div>
+                        ) : searchResults.length > 0 ? (
+                          searchResults.map((r) => (
+                            <button
+                              key={r.id}
+                              type="button"
+                              className="receiver-search-item"
+                              onClick={() => handleSelectRecipient(r)}
+                            >
+                              <span>{r.name}</span>
+                              <span style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginLeft: "8px" }}>
+                                {r.school}
+                              </span>
+                              <span
+                                className="star-btn"
+                                onClick={(e) => { e.stopPropagation(); toggleFavorite(r); }}
+                                style={{ marginLeft: "auto" }}
+                              >
+                                {isFavorite(r.id) ? "★" : "☆"}
+                              </span>
+                            </button>
+                          ))
+                        ) : (
+                          <div className="receiver-search-empty">
+                            {TEXT.send.noResults}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
                   {/* お気に入り */}
                   {favorites.length > 0 && (
-                    <div className="receiver-favorites">
+                    <div className="receiver-favorites" style={{ marginTop: "12px" }}>
                       <span className="receiver-favorites-label">{TEXT.send.favoritesLabel}</span>
                       <div className="receiver-favorites-list">
                         {favorites.map((r) => (
@@ -295,50 +339,6 @@ export default function SendPage() {
                       </div>
                     </div>
                   )}
-
-                  {/* 検索バー */}
-                  <div className="receiver-search-wrapper" style={{ marginTop: "12px" }}>
-                    <input
-                      type="text"
-                      className="form-input receiver-search-input"
-                      placeholder={TEXT.send.recipientSearchPlaceholder}
-                      value={searchQuery}
-                      onChange={(e) => handleSearchChange(e.target.value)}
-                      onFocus={() => setShowSearch(true)}
-                    />
-                    {showSearch && searchQuery.trim() && (
-                      <div className="receiver-search-results">
-                        {searching ? (
-                          <div className="receiver-search-empty">{TEXT.send.searching}</div>
-                        ) : searchResults.length > 0 ? (
-                          searchResults.map((r) => (
-                            <button
-                              key={r.id}
-                              type="button"
-                              className="receiver-search-item"
-                              onClick={() => handleSelectRecipient(r)}
-                            >
-                              <span>{r.name}</span>
-                              <span style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginLeft: "8px" }}>
-                                {r.school}
-                              </span>
-                              <span
-                                className="star-btn"
-                                onClick={(e) => { e.stopPropagation(); toggleFavorite(r); }}
-                                style={{ marginLeft: "auto" }}
-                              >
-                                {isFavorite(r.id) ? "★" : "☆"}
-                              </span>
-                            </button>
-                          ))
-                        ) : (
-                          <div className="receiver-search-empty">
-                            {TEXT.send.noResults}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
                 </>
               )}
             </div>

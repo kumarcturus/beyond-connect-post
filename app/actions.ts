@@ -8,7 +8,7 @@ export async function verifyPassword(password: string) {
     const cookieStore = await cookies();
     cookieStore.set("admin_gate", password, {
       path: "/",
-      httpOnly: true,
+      httpOnly: true,   // ✅ JSからアクセス不可。XSS攻撃でCookieを盗まれない
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
     });

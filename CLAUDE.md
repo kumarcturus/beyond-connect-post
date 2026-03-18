@@ -72,3 +72,26 @@ npm start      # 本番サーバー起動
 ## 参照ドキュメント
 
 - 実装仕様: `BCP-implementation-spec.md`（Phase 1 の詳細仕様）
+
+## ブランチ・公開方針
+
+- **ブランチ:** `main` ブランチ1本で開発中（`production` ブランチは存在しない）
+- **リポジトリ:** GitHub Public で公開済み（誰でもコードを閲覧できる状態）
+- そのため、秘密情報をコードにベタ書きすることは絶対に禁止
+
+## セキュリティルール（必ず守ること）
+
+### 絶対にやってはいけないこと
+- `.env` / `.env.local` / `.env.production` などの環境変数ファイルをGitにcommit・pushしない
+- APIキー、シークレットキー、パスワードをソースコード中に直接書かない（ハードコードしない）
+- これらの値をチャットやコメントに貼り付けない
+
+### 機密情報の正しい扱い方
+- 機密情報は必ず `.env` ファイルに書き、コードからは `process.env.VARIABLE_NAME` で参照する
+- `.gitignore` に `.env*` が含まれていることを確認してから作業する
+
+### pushしてはいけないファイル（.gitignoreで管理）
+- `.env` / `.env.local` / `.env.production`
+- `node_modules/`
+- `.next/`
+- `*.log`

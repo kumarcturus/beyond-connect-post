@@ -23,8 +23,9 @@ export default function Home() {
             <Link href="/send" className="btn btn-primary" id="btn-send-message">
               {TEXT.top.sendButton}
             </Link>
-            <Link href="/login" className="btn btn-secondary" id="btn-idol-login">
-              {TEXT.top.loginButton}
+            <Link href="/login" className="btn btn-secondary" id="btn-idol-login" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+              <span style={{ fontSize: "0.7em", opacity: 0.85 }}>{TEXT.top.loginButtonSub}</span>
+              <span>{TEXT.top.loginButtonMain}</span>
             </Link>
           </div>
         </div>
@@ -51,17 +52,7 @@ export default function Home() {
         >
           {TEXT.top.termsLink}
         </Link>
-        <span style={{ margin: "0 8px" }}>|</span>
-        <Link
-          href="/guide"
-          style={{
-            color: "var(--color-text-muted)",
-            textDecoration: "underline",
-            fontSize: "0.75rem",
-          }}
-        >
-          {TEXT.top.guideLink}
-        </Link>
+
         <span style={{ margin: "0 8px" }}>|</span>
         {TEXT.top.footer}
       </footer>
