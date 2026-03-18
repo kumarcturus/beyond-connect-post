@@ -37,9 +37,10 @@ export default function Home() {
           textAlign: "center",
           fontSize: "0.75rem",
           color: "var(--color-text-muted)",
-          padding: "16px 0",
+          padding: "12px 0",
           position: "relative",
           zIndex: 1,
+          flexShrink: 0,
         }}
       >
         <Link
