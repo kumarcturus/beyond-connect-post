@@ -77,7 +77,7 @@ export const TEXT = {
     submitting: "ログイン中...",
     validationError: "学校名・氏名・パスワードをすべて入力してください",
     loginFailed: "ログインに失敗しました",
-    registerLink: "招待コードをお持ちの方はこちらから登録",
+    registerLink: "招待コードでアカウントを登録",
     requestLink: "アカウント登録をリクエスト",
     registeredSuccess: "登録が完了しました！ログインしてください。",
   },
@@ -106,7 +106,7 @@ export const TEXT = {
     submitting: "登録中...",
     registerFailed: "登録に失敗しました",
     loginLink: "既にアカウントをお持ちの方はこちら",
-    requestLink: "招待コードをお持ちでない方はこちら",
+    requestLink: "招待コードをリクエスト",
   },
 
   // ─── アカウント登録リクエスト (/request) ───
@@ -223,10 +223,17 @@ export const TEXT = {
       "⭐ お気に入り — よく送る相手をお気に入りに登録しておくと、次回すぐに選べます",
       "🕐 送信履歴 — 最近メッセージを送った相手が上部に表示されます",
     ],
+    sendNotesTitle: "注意事項",
+    sendNotes: [
+      "送ったメッセージの編集・削除はできません",
+      "不適切な表現を含むメッセージは送信できない場合があります",
+    ],
 
     // === 3. OG向け使い方 ===
     ogGuideTitle: "🌸 スクールアイドルOGの方へ — メッセージを読む",
+    ogRegisterIntro: "はじめに：アカウント登録（在学中）",
     ogRegisterDescription: "届いたメッセージを読むには、アカウント登録が必要です。",
+    ogRegisterNote: "アカウント登録は、在学中に実施してください。",
     ogWithCodeTitle: "招待コードをお持ちの場合",
     ogWithCodeSteps: [
       "ログイン画面の「アカウント登録」を押す",
@@ -286,10 +293,15 @@ export const TEXT = {
       "送信者のログインや個人情報の入力は不要です。送信者を特定できる情報は収集しません",
       "本サービスはCookieを認証目的でのみ使用します",
     ],
-    securityServiceTitle: "通信の保護",
+    securityServiceTitle: "サービス全体の保護",
     securityServiceItems: [
+      "サービス公開前はアクセス制限をかけており、関係者以外はアクセスできません",
       "通信はすべてHTTPS（暗号化通信）で保護されています",
     ],
+    securityOtherTitle: "その他注意事項",
+    securityOtherNote: "素人制作です。注意して利用してください。",
+    securitySourceNote: "ソースコードはGitHubから確認できます。",
+    securitySourceUrl: "https://github.com/kumarcturus/beyond-connect-post",
 
     // === 5. 注意事項・禁止事項・免責事項・権利表記 ===
     rulesTitle: "注意事項・利用規約",
@@ -328,109 +340,6 @@ export const TEXT = {
     contactBody: "本サービスに関するご質問やご報告は、XアカウントのDMにてお受けしています。",
     // フッター
     lastUpdated: "最終更新: 2026年3月",
-  },
-
-  // ─── 使い方ページ (/guide) ───
-  guide: {
-    title: "Beyond Connect POST — 使い方",
-    conceptBeyond: "Beyond — スクコネポストの「現役のスクールアイドルにしか送れない」制約を越えて",
-    conceptConnect: "Connect — 卒業したスクールアイドルと繋がる",
-    conceptPost: "POST",
-    conceptDescription: "Beyond Connect POST は、卒業したスクールアイドルにメッセージを届けられるサービスです。",
-    // サービスについて
-    serviceTitle: "サービスについて",
-    serviceDescription: "Beyond Connect POST（BCP）は、スクールアイドルの卒業生へ想いを届けるためのメッセージサービスです。",
-    serviceFeatures: [
-      "誰でも ログインや会員登録なし で、すぐにメッセージを送れます",
-      "スクールアイドル卒業生は OGログイン することで自分宛てに届いたメッセージを、いつでも読むことができます",
-      "メッセージの内容は 本人以外には見えません",
-    ],
-    serviceUrl: "https://beyond-connect-post.vercel.app/",
-    // みなさまへ
-    sendTitle: "みなさまへ — メッセージの送り方",
-    sendFlowTitle: "送信の流れ",
-    sendFlowSteps: [
-      "トップページの 「✉️ メッセージを送る」 を押す",
-      "宛先を選ぶ — 検索ボックスに名前や学校名を入力するとアカウント登録されている宛先候補が表示されます",
-      "ニックネームを入力 — 相手に表示される名前です（自由に決められます）",
-      "メッセージを書く — 1000文字以内で、想いを綴ってください",
-      "「送信」 を押して完了！",
-    ],
-    sendFeaturesTitle: "便利な機能",
-    sendFeatures: [
-      "⭐ お気に入り — よく送る相手をお気に入りに登録しておくと、次回すぐに選べます",
-      "🕐 送信履歴 — 最近メッセージを送った相手が表示されます",
-    ],
-    sendNotesTitle: "注意事項",
-    sendNotes: [
-      "送ったメッセージの編集・削除はできません",
-      "不適切な表現を含むメッセージは送信できない場合があります",
-    ],
-    // スクールアイドルOGの方へ
-    ogTitle: "🌸 スクールアイドルOGの方へ — メッセージの読み方",
-    ogRegisterIntro: "はじめに：アカウント登録（在学中）",
-    ogRegisterDescription: "メッセージを受け取るには、アカウント登録が必要です。",
-    ogRegisterNote: "アカウント登録は、在学中に実施してください。",
-    ogWithCodeTitle: "招待コードをお持ちの場合",
-    ogWithCodeSteps: [
-      "ログイン画面の 「アカウント登録」 を押す",
-      "招待コード を入力",
-      "学校名 をプルダウンから選択",
-      "氏名 を入力",
-      "パスワード を設定（8文字以上、確認のため2回入力）",
-      "「登録」を押して完了 → ログイン画面に戻ります",
-    ],
-    ogWithoutCodeTitle: "招待コードをお持ちでない場合",
-    ogWithoutCodeSteps: [
-      "ログイン画面の 「アカウント登録」 を押し、登録画面の 「招待コードをお持ちでない方はこちら」 を押す",
-      "学校名 と 氏名 を入力して送信",
-      "運営が確認後、 スクコネポスト で 招待コード をお送りします",
-      "届いたら上の手順で登録してください",
-    ],
-    ogLoginTitle: "ログインとメッセージ閲覧",
-    ogLoginSteps: [
-      "ログイン画面で 学校名（プルダウン）・ 氏名 ・ パスワード を入力",
-      "ログインすると、届いたメッセージが新しい順に一覧表示されます",
-      "メッセージをタップすると全文が読めます",
-    ],
-    ogFaqTitle: "FAQ",
-    ogFaqItems: [
-      {
-        q: "登録前に届いたメッセージはどうなりますか？",
-        a: "アカウント登録前でも、ファンから送られたメッセージはすべて保存されています。登録・ログインすれば、過去のメッセージもすべて読めます。",
-      },
-      {
-        q: "パスワードを忘れてしまいました",
-        a: "フォームから運営にご連絡ください。パスワードのリセットを行います。",
-      },
-      {
-        q: "ログインの有効期限はありますか？",
-        a: "ログイン状態は7日間有効です。期限が切れた場合は、再度ログインしてください。",
-      },
-    ],
-    // セキュリティ
-    securityTitle: "セキュリティについて",
-    securityDescription: "Beyond Connect POST では、安心してご利用いただけるよう以下の対策を行っています。",
-    securityMessageTitle: "メッセージの安全性",
-    securityMessageItems: [
-      "NGワードフィルタ を搭載しており、不適切な表現を含むメッセージは自動的にブロックされます",
-      "送信されたメッセージは 宛先の本人のみ が閲覧できます（運営は閲覧できません）",
-    ],
-    securityAccountTitle: "アカウントの安全性",
-    securityAccountItems: [
-      "パスワードは 暗号化して保存 されており、運営を含め誰も原文を見ることはできません",
-      "ログインには 学校名・氏名・パスワードの3つ が必要です",
-      "アカウント登録には 運営が発行した招待コード が必要なため、第三者がなりすまして登録することはできません",
-      "ログインセッションは 7日間で自動的に期限切れ になります",
-    ],
-    securityServiceTitle: "サービス全体の保護",
-    securityServiceItems: [
-      "サービス公開前はアクセス制限をかけており、関係者以外はアクセスできません",
-      "通信はすべて HTTPS（暗号化通信） で保護されています",
-    ],
-    securityOtherTitle: "その他注意事項",
-    securityOtherNote: "素人制作です。注意して利用してください。",
-    securitySourceNote: "ソースコードはGitHubから確認できます。",
   },
 
   // ─── パスワードリセット ───

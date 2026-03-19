@@ -167,7 +167,34 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div style={{ textAlign: "center", marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <Link
+              href="/register"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                background: "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,249,255,0.9) 100%)",
+                border: "2px solid #005e99",
+                borderRadius: "14px",
+                padding: "11px 14px",
+                textDecoration: "none",
+                color: "#005e99",
+                fontSize: "0.9rem",
+                fontWeight: 700,
+                letterSpacing: "0.02em",
+                whiteSpace: "nowrap",
+                boxShadow: "0 2px 10px rgba(0,94,153,0.13)",
+                fontFamily: "var(--font-main)",
+              }}
+            >
+              <span>{TEXT.login.registerLink}</span>
+              <span style={{ display: "flex", gap: "5px", alignItems: "center", flexShrink: 0 }}>
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#f8b500", display: "inline-block" }} />
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ff1a94", display: "inline-block" }} />
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#005e99", display: "inline-block" }} />
+              </span>
+            </Link>
             <button
               type="button"
               style={{
@@ -178,6 +205,7 @@ export default function LoginPage() {
                 cursor: "pointer",
                 textDecoration: "underline",
                 fontFamily: "var(--font-main)",
+                textAlign: "center",
               }}
               disabled={resetRequesting}
               onClick={async () => {
@@ -208,9 +236,6 @@ export default function LoginPage() {
             >
               {TEXT.passwordReset.linkText}
             </button>
-            <Link href="/register" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
-              {TEXT.login.registerLink}
-            </Link>
           </div>
         </div>
       </div>

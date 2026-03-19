@@ -49,12 +49,18 @@ export default function TermsPage() {
             <ul className="terms-list">
               {TEXT.terms.sendFeatures.map((f, i) => <li key={i}>{f}</li>)}
             </ul>
+            <p className="terms-sub-heading" style={{ marginTop: "14px" }}>{TEXT.terms.sendNotesTitle}</p>
+            <ul className="terms-list">
+              {TEXT.terms.sendNotes.map((n, i) => <li key={i}>{n}</li>)}
+            </ul>
           </section>
 
           {/* 3. OG向け使い方 */}
           <section style={{ marginBottom: "28px" }}>
             <h2 className="terms-section-title">{TEXT.terms.ogGuideTitle}</h2>
-            <p className="terms-body" style={{ marginBottom: "12px" }}>{TEXT.terms.ogRegisterDescription}</p>
+            <p className="terms-sub-heading">{TEXT.terms.ogRegisterIntro}</p>
+            <p className="terms-body" style={{ marginBottom: "4px" }}>{TEXT.terms.ogRegisterDescription}</p>
+            <p className="terms-body" style={{ marginBottom: "12px", fontWeight: 600 }}>{TEXT.terms.ogRegisterNote}</p>
 
             <p className="terms-sub-heading">{TEXT.terms.ogWithCodeTitle}</p>
             <ol className="terms-list">
@@ -104,6 +110,15 @@ export default function TermsPage() {
             <ul className="terms-list">
               {TEXT.terms.securityServiceItems.map((item, i) => <li key={i}>{item}</li>)}
             </ul>
+
+            <p className="terms-sub-heading" style={{ marginTop: "14px" }}>{TEXT.terms.securityOtherTitle}</p>
+            <p className="terms-body">{TEXT.terms.securityOtherNote}</p>
+            <p className="terms-body">
+              {TEXT.terms.securitySourceNote}{" "}
+              <a href={TEXT.terms.securitySourceUrl} target="_blank" rel="noopener noreferrer">
+                {TEXT.terms.securitySourceUrl}
+              </a>
+            </p>
           </section>
 
           {/* 5. 注意事項・禁止事項・免責事項・権利表記 */}

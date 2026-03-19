@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { TEXT } from "@/app/lib/text";
 
 export default function Home() {
@@ -9,11 +10,15 @@ export default function Home() {
 
       <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
         <div className="card" style={{ textAlign: "center" }}>
-          {/* アイコン */}
-          <div className="hero-icon">{TEXT.top.icon}</div>
-
-          {/* タイトル */}
-          <h1 className="page-title">{TEXT.top.title}</h1>
+          {/* ロゴ */}
+          <Image
+            src="/logo_toppage.png"
+            alt={TEXT.top.title}
+            width={560}
+            height={280}
+            className="hero-logo"
+            priority
+          />
           <p className="page-subtitle pre-line">
             {TEXT.top.subtitle}
           </p>
@@ -48,7 +53,8 @@ export default function Home() {
           style={{
             color: "var(--color-text-muted)",
             textDecoration: "underline",
-            fontSize: "0.75rem",
+            fontSize: "0.9rem",
+            fontWeight: 500,
           }}
         >
           {TEXT.top.termsLink}
