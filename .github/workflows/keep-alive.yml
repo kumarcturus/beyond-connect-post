@@ -1,0 +1,20 @@
+name: Keep Redis Alive
+
+on:
+  schedule:
+    # 毎日 UTC 0:00 (JST 9:00) に実行
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping production API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://beyond-connect-post.vercel.app/api/schools)
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "Warning: expected 200, got $STATUS"
+            exit 1
+          fi

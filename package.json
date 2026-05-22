@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "seed:recipients": "node --env-file=.env.local scripts/seed-recipients.mjs",
+    "backup": "node --env-file=.env.local scripts/backup-redis.mjs"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",

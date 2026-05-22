@@ -1,0 +1,50 @@
+name: Monthly Health Check Reminder
+
+on:
+  schedule:
+    # 毎月1日 UTC 0:00 (JST 9:00)
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create reminder issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today = new Date().toISOString().slice(0, 10);
+            const body = [
+              "## 月次ヘルスチェック",
+              "",
+              "毎月1回、以下を確認してください（5分程度）。",
+              "",
+              "### ✅ チェックリスト",
+              "",
+              "- [ ] [本番サイト](https://beyond-connect-post.vercel.app/) が普通に開く",
+              "- [ ] [管理画面](https://beyond-connect-post.vercel.app/admin) で宛先リストが表示される",
+              "- [ ] [Actions](../../actions) タブで `Keep Redis Alive` が直近成功している",
+              "- [ ] [Actions](../../actions) タブで `Backup Redis Metadata` が直近成功している",
+              "- [ ] Vercel/Redis/GitHub からの**重要メール**を確認した（削除予告・規約変更等）",
+              "- [ ] [Dependabot alerts](../../security/dependabot) があれば内容確認（緊急でなければ放置でOK）",
+              "",
+              "### 何かおかしかったら",
+              "",
+              "- Redis が消えていたら → 復旧手順は `scripts/seed-recipients.mjs` と `backups/latest.json` を参照",
+              "- Actions が止まっていたら → 該当ワークフローを開いて手動 Run、または何か小さなコミットを push して活性化",
+              "",
+              "### 完了したら",
+              "",
+              "この Issue を Close してください。次回は来月またこのチケットが自動で立ちます。",
+            ].join("\n");
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `月次ヘルスチェック (${today})`,
+              body,
+            });

@@ -1,0 +1,145 @@
+{
+  "backed_up_at": "2026-05-22T15:00:43.524Z",
+  "note": "メッセージ本文・password_hash は意図的に除外。復旧用メタデータのみ。",
+  "recipients": [
+    {
+      "id": "rcpt_twy86ns0",
+      "name": "セラス柳田リリエンフェルト",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:39.994Z"
+    },
+    {
+      "id": "rcpt_wj75rxlj",
+      "name": "桂城泉",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:40.363Z"
+    },
+    {
+      "id": "rcpt_8ccuic6g",
+      "name": "百生吟子",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:40.733Z"
+    },
+    {
+      "id": "rcpt_4hy956pj",
+      "name": "徒町小鈴",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:41.100Z"
+    },
+    {
+      "id": "rcpt_k4snzhvu",
+      "name": "安養寺姫芽",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:41.469Z"
+    },
+    {
+      "id": "rcpt_sk06lweu",
+      "name": "日野下花帆",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:41.835Z"
+    },
+    {
+      "id": "rcpt_dxd6iz0q",
+      "name": "村野さやか",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:42.266Z"
+    },
+    {
+      "id": "rcpt_8sk96j2d",
+      "name": "大沢瑠璃乃",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:42.677Z"
+    },
+    {
+      "id": "rcpt_y9odqe1m",
+      "name": "乙宗梢",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:43.096Z"
+    },
+    {
+      "id": "rcpt_5zjsirgj",
+      "name": "夕霧綴理",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:43.475Z"
+    },
+    {
+      "id": "rcpt_52jz95a1",
+      "name": "藤島慈",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:43.913Z"
+    },
+    {
+      "id": "rcpt_1pczth7t",
+      "name": "大賀美沙知",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:44.314Z"
+    },
+    {
+      "id": "rcpt_b36gg9av",
+      "name": "錦上マイカ",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:44.723Z"
+    },
+    {
+      "id": "rcpt_okvj108s",
+      "name": "令沢葵",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:45.133Z"
+    },
+    {
+      "id": "rcpt_x6pm8vea",
+      "name": "紫輪みおん",
+      "school": "蓮ノ空女学院",
+      "school_short": "蓮",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:45.546Z"
+    },
+    {
+      "id": "rcpt_duzk9153",
+      "name": "襟川つぐみ",
+      "school": "新潟県立晴里高校",
+      "school_short": "晴",
+      "idol_id": null,
+      "created_at": "2026-05-22T14:27:45.954Z"
+    }
+  ],
+  "invites": [],
+  "idols": [],
+  "idol_logins": {},
+  "requests": [],
+  "counts": {
+    "recipients": 16,
+    "invites": 0,
+    "idols": 0,
+    "requests": 0,
+    "messages_total": 2
+  }
+}
