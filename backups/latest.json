@@ -1,5 +1,5 @@
 {
-  "backed_up_at": "2026-06-01T04:20:38.232Z",
+  "backed_up_at": "2026-06-08T04:16:01.611Z",
   "note": "メッセージ本文・password_hash は意図的に除外。復旧用メタデータのみ。",
   "recipients": [
     {
@@ -140,6 +140,6 @@
     "invites": 0,
     "idols": 0,
     "requests": 0,
-    "messages_total": 2
+    "messages_total": 3
   }
 }
